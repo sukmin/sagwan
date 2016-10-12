@@ -10,15 +10,16 @@
 (function ($) {
 
     var defaultOption = {
+        "version": 1,
         "saveItemCount": 10,
         "onEquals": function (obj1, obj2) {
             for (prop in obj1) {
-                if (obj1[prop] !== obj2[prop]) {
+                if (prop !== "sagwanDate" && obj1[prop] !== obj2[prop]) {
                     return false;
                 }
             }
             for (prop in obj2) {
-                if (obj2[prop] !== obj1[prop]) {
+                if (prop !== "sagwanDate" && obj2[prop] !== obj1[prop]) {
                     return false;
                 }
             }
@@ -51,7 +52,7 @@
             var text = "";
             for (prop in obj) {
                 if (prop !== "sagwanDate") {
-                    text = text + obj[prop] + " ; ";
+                    text = text + prop + ":" + obj[prop] + " ";
                 }
             }
             return text;
@@ -71,7 +72,7 @@
 
         this.histories = null;
         this.inputTag = $(el);
-        this.id = (window.location.hostname + window.location.port + window.location.pathname).replace(/\/|\./gi, "") + this.inputTag.attr("id");
+        this.id = (window.location.hostname + window.location.port + window.location.pathname).replace(/\/|\.|\:/gi, "") + this.inputTag.attr("id");
         this.storageKey = this.CONSTANT.KEY_PREFIX + this.id;
         this.listId = this.CONSTANT.LIST_PREFIX + this.id;
         this.historieseId = this.CONSTANT.HISTORIESE_PREFIX + this.id;
@@ -90,10 +91,21 @@
 
     Sagwan.prototype.load = function () {
         var loadedData = localStorage.getItem(this.storageKey);
-        this.histories = JSON.parse(loadedData);
-        if (this.histories == null) {
+        var loadedObj = JSON.parse(loadedData);
+        if (loadedObj == null) {
             this.histories = [];
+            return;
         }
+        if (loadedObj.histories == false){
+            this.histories = [];
+            return;
+        }
+        if (this.option.version > loadedObj.version) {
+            localStorage.removeItem(this.storageKey);
+            this.histories = [];
+            return;
+        }
+        this.histories = loadedObj.histories;
     };
 
     Sagwan.prototype.equals = function (obj1, obj2) {
@@ -126,7 +138,11 @@
         if (this.histories.length > this.option.saveItemCount) {
             this.histories = this.histories.slice(0, this.option.saveItemCount);
         }
-        var savingData = JSON.stringify(this.histories);
+        var savingObj = {
+            version : this.option.version,
+            histories : this.histories
+        };
+        var savingData = JSON.stringify(savingObj);
         localStorage.setItem(this.storageKey, savingData);
         this.draw();
     };
