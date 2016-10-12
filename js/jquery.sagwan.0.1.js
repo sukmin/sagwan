@@ -234,15 +234,17 @@
         var sagwanHistories = $('<div id="' + this.historieseId + '">');
 
         var sagwanArea = $('<div id="' + this.areaId + '">');
+        var inputTagPosition = this.inputTag.position();
         sagwanArea.css({
             "position": "absolute",
             "background-color": "#eaeafb",
             "border": "1px solid #888d95",
             "display": "none",
             "z-index": 9999,
-            "width": this.inputTag.outerWidth() + "px"
+            "width": this.inputTag.outerWidth() + "px",
+            "left": inputTagPosition.left + "px"
         });
-
+        
         sagwanHistories.append(sagwanList);
         sagwanArea.append(sagwanHistories);
         sagwanArea.insertAfter(this.inputTag);

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>sagwan sample</title>
+  <style>
+  	.my_input {
+  		width : 400px;
+  	}
+  </style>
+</head>
+<body>
+sagwan(사관) 샘플페이지입니다.
+
+<h3>샘플01</h1>
+<form>
+	<input type="text" class="my_input" id="input_sample_01_keyword" >
+	<a href="#" id="a_sample_01_search">조회</a>
+</form><br>
+
+<h3>샘플02</h1>
+<form>
+	<input type="text" class="my_input" id="input_sample_02_keyword" >
+	<a href="#" id="a_sample_02_search">조회</a>
+</form><br>
+
+<h3>샘플03</h1>
+<form>
+	<input type="text" class="my_input" id="input_sample_03_keyword" >
+	<a href="#" id="a_sample_03_search">조회</a>
+</form><br>
+
+<h3>샘플04</h1>
+<form>
+	<input type="text" class="my_input" id="input_sample_04_keyword" >
+	<a href="#" id="a_sample_04_search">조회</a>
+</form><br>
+
+<h3>샘플05</h1>
+<form>
+	<select id="select_sample_05">
+		<option value="한조">한조</option>
+		<option value="위도우메이커">위도우메이커</option>
+	</select>
+	<input type="text" class="my_input" id="input_sample_05_keyword" >
+	<a href="#" id="a_sample_05_search">조회</a>
+</form><br>
+<script type="text/javascript" src="./js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="./js/jquery.sagwan.0.1.js"></script>
+<script type="text/javascript">
+
+//샘플01 예제 
+$("#input_sample_01_keyword").sagwan();
+
+$("#a_sample_01_search").click(function(e){
+	e.preventDefault();
+	var value = $("#input_sample_01_keyword").val();
+	$("#input_sample_01_keyword").sagwanSave({
+		value : value
+	});
+});
+
+
+//샘플02 예제 
+$("#input_sample_02_keyword").sagwan({
+        "onDrawItemText": function (obj) {
+            return "<strong>" + obj.value + "</strong>";
+        }
+});
+
+$("#a_sample_02_search").click(function(e){
+	e.preventDefault();
+	var value = $("#input_sample_02_keyword").val();
+	$("#input_sample_02_keyword").sagwanSave({
+		value : value
+	});
+});
+
+
+//샘플03 예제 
+$("#input_sample_03_keyword").sagwan({
+        "onDrawItemText": function (obj) {
+            return "<strong>" + obj.value + "</strong>";
+        }
+}).on("sagwan:clickItem",function (e,obj){
+	$("#input_sample_03_keyword").val(obj.value);
+});
+
+$("#a_sample_03_search").click(function(e){
+	e.preventDefault();
+	var value = $("#input_sample_03_keyword").val();
+	$("#input_sample_03_keyword").sagwanSave({
+		value : value
+	});
+});
+
+
+//샘플04 예제 
+$("#input_sample_04_keyword").sagwan({
+        "onDrawItemText": function (obj) {
+            return "<strong>" + obj.value + "</strong>";
+        }
+}).on("sagwan:clickItem",function (e,obj){
+
+	$("#input_sample_04_keyword").val(obj.value);
+
+}).on("sagwan:clickItemAfter",function (e,obj){
+
+	alert("clickItemAfter Event value : " + obj.value);
+
+});
+
+$("#a_sample_04_search").click(function(e){
+	e.preventDefault();
+	var value = $("#input_sample_04_keyword").val();
+	$("#input_sample_04_keyword").sagwanSave({
+		value : value
+	});
+});
+
+
+//샘플05 예제 
+$("#input_sample_05_keyword").sagwan({
+		"onEquals": function (obj1, obj2) {
+            if (obj1.select !== obj2.select) {
+                return false;
+            }
+            if (obj1.value !== obj2.value) {
+                return false;
+            }
+            return true;
+        },
+        "onDrawItemText": function (obj) {
+            return "<strong>" + obj.select + "</strong> ::" + obj.value;
+        }
+}).on("sagwan:clickItem",function (e,obj){
+
+	$('#select_sample_05').val(obj.select).prop("selected", true);
+	$("#input_sample_05_keyword").val(obj.value);
+
+}).on("sagwan:clickItemAfter",function (e,obj){
+
+	alert("clickItemAfter Event select : " + obj.select + ", value : " + obj.value);
+
+});
+
+$("#a_sample_05_search").click(function(e){
+	e.preventDefault();
+	var select = $("#select_sample_05").val();
+	var value = $("#input_sample_05_keyword").val();
+	$("#input_sample_05_keyword").sagwanSave({
+		select : select,
+		value : value
+	});
+});
+</script>
+</body>
+</html>
