@@ -35,9 +35,9 @@ $("#input_sample_05_keyword").sagwan({
 | --- | --- | --- | --- |
 | version | 정수 | 히스토리 버전. sagwan은 오브젝트로 저장하는데, 저장하는 오브젝트의 구조가 변경되면 불러오기나 그리기시 오류가 발생할 수 있습니다. 오브젝트 구조가 변한다면 버전을 높혀주어야 합니다. | 1 |
 | saveItemCount | 정수 | 히스토리를 구성할 갯수 | 10 |
-| onEquals | 함수 | 오브젝트가 일치하는지 판단하는 함수. 파라미터로 오브젝트2개를 받고 true, false를 리턴해야 합니다. | https://github.com/sukmin/sagwan/blob/master/jquery.sagwan.0.1.js#L15 |
-| onDateToString | 함수 | 검색히스토리에 시간을 보여줄때 시간 포맷. 파라미터로 date객체를 받고 문자열을 리턴합니다. | https://github.com/sukmin/sagwan/blob/master/jquery.sagwan.0.1.js#L28 |
-| onDrawItemText | 함수 | 검색히스토리를 사용자에게 보여줄때 아이템 하나하나를 어떻게 보여줄지 구성합니다. 파라미터로 오브젝트를 받고 문자열을 리턴합니다. | https://github.com/sukmin/sagwan/blob/master/jquery.sagwan.0.1.js#L51 |
+| onEquals | 함수 | 오브젝트가 일치하는지 판단하는 함수. 파라미터로 오브젝트2개를 받고 true, false를 리턴해야 합니다. | [link](https://github.com/sukmin/sagwan/blob/master/jquery.sagwan.0.1.js#L15)  |
+| onDateToString | 함수 | 검색히스토리에 시간을 보여줄때 시간 포맷. 파라미터로 date객체를 받고 문자열을 리턴합니다. | [link](https://github.com/sukmin/sagwan/blob/master/jquery.sagwan.0.1.js#L28)   |
+| onDrawItemText | 함수 | 검색히스토리를 사용자에게 보여줄때 아이템 하나하나를 어떻게 보여줄지 구성합니다. 파라미터로 오브젝트를 받고 문자열을 리턴합니다. | [link](https://github.com/sukmin/sagwan/blob/master/jquery.sagwan.0.1.js#L51) |
 
 ## 메소드
 ### sagwanSave 메소드
