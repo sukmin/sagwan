@@ -96,7 +96,8 @@
             this.histories = [];
             return;
         }
-        if (loadedObj.histories == false){
+        if (!loadedObj.histories) {
+            localStorage.removeItem(this.storageKey);
             this.histories = [];
             return;
         }
@@ -139,8 +140,8 @@
             this.histories = this.histories.slice(0, this.option.saveItemCount);
         }
         var savingObj = {
-            version : this.option.version,
-            histories : this.histories
+            version: this.option.version,
+            histories: this.histories
         };
         var savingData = JSON.stringify(savingObj);
         localStorage.setItem(this.storageKey, savingData);
@@ -260,7 +261,7 @@
             "width": this.inputTag.outerWidth() + "px",
             "left": inputTagPosition.left + "px"
         });
-        
+
         sagwanHistories.append(sagwanList);
         sagwanArea.append(sagwanHistories);
         sagwanArea.insertAfter(this.inputTag);
