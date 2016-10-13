@@ -13,7 +13,7 @@ sagwan(사관)은 jQuery 플러그인입니다.
 https://sukmin.github.io/sagwan/
 
 ##초기화
-플러그인 대상은 <input type="text"> 입니다.
+플러그인 대상은 input태그 type=text 입니다.
 ```javascript
 $("#input_sample_05_keyword").sagwan({
 		"onEquals": function (obj1, obj2) {
