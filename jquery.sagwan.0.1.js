@@ -173,14 +173,22 @@
         $.each(this.histories, $.proxy(function (idx, obj) {
 
             var elList = $('<li>');
-            var elA = $('<a href="#">');
-            elA.addClass(this.clickClassName);
-            elA.html(this.drawItemText(obj));
-            elA.data(this.CONSTANT.ITEM_NAME, obj);
+            elList.addClass(this.clickClassName);
+            elList.css('cursor', 'pointer');
+            elList.html(this.drawItemText(obj));
+
+            elList.data(this.CONSTANT.ITEM_NAME, obj);
+
             var elEm = $('<em style="position: absolute;right: 10px;">');
             elEm.text(this.dateToString(obj.sagwanDate));
-            elList.append(elA);
             elList.append(elEm);
+
+            elList.on('mouseover', function (event) {
+                $(event.currentTarget).css('background-color', '#DBDBDB');
+            });
+            elList.on('mouseleave', function (event) {
+                $(event.currentTarget).css('background-color', '');
+            });
 
             sagwanList.append(elList);
         }, this));
@@ -254,8 +262,8 @@
         var inputTagPosition = this.inputTag.position();
         sagwanArea.css({
             "position": "absolute",
-            "background-color": "#eaeafb",
-            "border": "1px solid #888d95",
+            "background-color": "#FBFBFB",
+            "border": "1px solid #cccccc",
             "display": "none",
             "z-index": 9999,
             "width": this.inputTag.outerWidth() + "px",
