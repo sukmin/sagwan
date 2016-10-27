@@ -183,13 +183,6 @@
             elEm.text(this.dateToString(obj.sagwanDate));
             elList.append(elEm);
 
-            elList.on('mouseover', function (event) {
-                $(event.currentTarget).css('background-color', '#DBDBDB');
-            });
-            elList.on('mouseleave', function (event) {
-                $(event.currentTarget).css('background-color', '');
-            });
-
             sagwanList.append(elList);
         }, this));
     };
@@ -244,8 +237,19 @@
         this.area.on("click", "." + this.clickClassName, $.proxy(this.onClickItem, this));
 
         $(window).resize($.proxy(this.onResize, this));
+
+        var sagwanList = $('#' + this.listId);
+        sagwanList.on('mouseover', 'li', $.proxy(this.onListItemMouseOver, this));
+        sagwanList.on('mouseleave', 'li', $.proxy(this.onListItemMouseLeave, this));
     };
 
+    Sagwan.prototype.onListItemMouseOver = function (event) {
+        $(event.currentTarget).css('background-color', '#DBDBDB');
+    };
+
+    Sagwan.prototype.onListItemMouseLeave = function (event) {
+        $(event.currentTarget).css('background-color', '');
+    };
 
     Sagwan.prototype.createArea = function () {
 
