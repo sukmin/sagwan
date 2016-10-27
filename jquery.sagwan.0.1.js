@@ -173,13 +173,14 @@
         $.each(this.histories, $.proxy(function (idx, obj) {
 
             var elList = $('<li>');
-            var elA = $('<a href="#">');
-            elA.addClass(this.clickClassName);
-            elA.html(this.drawItemText(obj));
-            elA.data(this.CONSTANT.ITEM_NAME, obj);
+            elList.addClass(this.clickClassName);
+            elList.css('cursor', 'pointer');
+            elList.html(this.drawItemText(obj));
+
+            elList.data(this.CONSTANT.ITEM_NAME, obj);
+
             var elEm = $('<em style="position: absolute;right: 10px;">');
             elEm.text(this.dateToString(obj.sagwanDate));
-            elList.append(elA);
             elList.append(elEm);
 
             sagwanList.append(elList);
@@ -236,8 +237,19 @@
         this.area.on("click", "." + this.clickClassName, $.proxy(this.onClickItem, this));
 
         $(window).resize($.proxy(this.onResize, this));
+
+        var sagwanList = $('#' + this.listId);
+        sagwanList.on('mouseover', 'li', $.proxy(this.onListItemMouseOver, this));
+        sagwanList.on('mouseleave', 'li', $.proxy(this.onListItemMouseLeave, this));
     };
 
+    Sagwan.prototype.onListItemMouseOver = function (event) {
+        $(event.currentTarget).css('background-color', '#DBDBDB');
+    };
+
+    Sagwan.prototype.onListItemMouseLeave = function (event) {
+        $(event.currentTarget).css('background-color', '');
+    };
 
     Sagwan.prototype.createArea = function () {
 
@@ -254,8 +266,8 @@
         var inputTagPosition = this.inputTag.position();
         sagwanArea.css({
             "position": "absolute",
-            "background-color": "#eaeafb",
-            "border": "1px solid #888d95",
+            "background-color": "#FBFBFB",
+            "border": "1px solid #cccccc",
             "display": "none",
             "z-index": 9999,
             "width": this.inputTag.outerWidth() + "px",
